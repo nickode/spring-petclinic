@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        catchError(buildResult: 'mvn clean test') {
+        catchError(buildResult: 'mvn clean') {
           mail(subject: 'Error: Unable to build project spring-petclinic', body: 'Was not able to build.', to: 'nicolasnsamaha@hotmail.com')
         }
 

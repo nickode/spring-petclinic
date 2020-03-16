@@ -3,13 +3,17 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat 'mvn compile'
+        catchError(buildResult: 'mvn compile', catchInterruptions: true) {
+          mail(subject: 'Error: Unable to build project spring-petclinic', body: 'Was not able to build.', to: 'nicolasnsamaha@hotmail.com')
+        }
+
       }
     }
 
     stage('Test') {
       steps {
         bat 'mvn test'
+        catchError()
       }
     }
 
